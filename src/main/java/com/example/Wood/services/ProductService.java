@@ -9,4 +9,6 @@ public interface ProductService {
     List<ProductDto> getALlShops();
 
     List<ProductDto> getALlServicess();
+
+    ProductDto getProductById(Long id);
 }

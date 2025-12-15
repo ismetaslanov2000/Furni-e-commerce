@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -51,10 +52,20 @@ public class HomeController {
     public  String cart(){
         return "cart.html";
     }
+    @GetMapping("/thankyou")
+    public String thankyou(){
+        return "thankyou.html";
+    }
     @GetMapping("/shop")
     public  String shop(Model model){
         List<ProductDto> productDtoList=productService.getALlShops();
         model.addAttribute("shops",productDtoList);
         return "shop.html";
+    }
+    @GetMapping("product/{id}")
+    public String detail(@PathVariable Long id,Model model){
+        ProductDto productDto=productService.getProductById(id);
+        model.addAttribute("product",productDto);
+        return "detail.html";
     }
 }

@@ -41,4 +41,10 @@ public class ProductServiceImpl implements ProductService {
 
         return productDtos;
     }
+
+    @Override
+    public ProductDto getProductById(Long id) {
+        Product product=productsRepostitory.findById(id).orElseThrow();
+        return modelMapper.map(product,ProductDto.class);
+    }
 }
