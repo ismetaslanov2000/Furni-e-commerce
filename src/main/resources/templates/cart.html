@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml"
       layout:decorate="~{layout}">
 <head>
     <title>Home</title>
@@ -44,14 +44,14 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
+                            <tr th:each="item : ${cartItems}">
                                 <td class="product-thumbnail">
-                                    <img src="/front/images/product-1.png" alt="Image" class="img-fluid">
+                                    <img th:src="@{${item.imageUrl}}" alt="Image" class="img-fluid">
                                 </td>
                                 <td class="product-name">
-                                    <h2 class="h5 text-black">Product 1</h2>
+                                    <h2 th:text="${item.name}" class="h5 text-black">Product 1</h2>
                                 </td>
-                                <td>$49.00</td>
+                                <td th:text="${item.price} + '$'">$49.00</td>
                                 <td>
                                     <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
                                         <div class="input-group-prepend">
@@ -68,29 +68,6 @@
                                 <td><a href="#" class="btn btn-black btn-sm">X</a></td>
                             </tr>
 
-                            <tr>
-                                <td class="product-thumbnail">
-                                    <img src="/front/images/product-2.png" alt="Image" class="img-fluid">
-                                </td>
-                                <td class="product-name">
-                                    <h2 class="h5 text-black">Product 2</h2>
-                                </td>
-                                <td>$49.00</td>
-                                <td>
-                                    <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
-                                        <div class="input-group-prepend">
-                                            <button class="btn btn-outline-black decrease" type="button">&minus;</button>
-                                        </div>
-                                        <input type="text" class="form-control text-center quantity-amount" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-black increase" type="button">&plus;</button>
-                                        </div>
-                                    </div>
-
-                                </td>
-                                <td>$49.00</td>
-                                <td><a href="#" class="btn btn-black btn-sm">X</a></td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>

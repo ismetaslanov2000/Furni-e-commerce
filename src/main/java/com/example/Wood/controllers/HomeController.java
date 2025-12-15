@@ -48,10 +48,7 @@ public class HomeController {
     public  String contact(){
         return "contact.html";
     }
-    @GetMapping("/cart")
-    public  String cart(){
-        return "cart.html";
-    }
+
     @GetMapping("/thankyou")
     public String thankyou(){
         return "thankyou.html";

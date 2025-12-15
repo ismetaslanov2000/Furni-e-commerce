@@ -19,7 +19,7 @@ public class Cart {
     private String imageUrl;
     private String name;
     private Double price;
-    private String quantity;
+    private int quantity;
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
