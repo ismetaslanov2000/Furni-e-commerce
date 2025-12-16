@@ -13,7 +13,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,12 +23,20 @@ public class CartServiceImpl implements CartService {
 //    ----------------ozumcun
     private final ModelMapper modelMapper;
     @Override
-    public List<Cart> getCartItemsByUserName(String username) {
-        return cartRepository.findByUserUsername(username);
+    public List<CartDto> getCartItemsByUserName(String username) {
+        return cartRepository.findByUserUsername(username).stream().map(cart -> new CartDto(
+                cart.getId(),
+                cart.getName(),
+                cart.getImageUrl(),
+                cart.getQuantity(),
+                cart.getPrice()
+
+
+        )).toList();
     }
 
     @Override
-    public double calculateSubtotal(List<Cart> cartItems) {
+    public double calculateSubtotal(List<CartDto> cartItems) {
         return cartItems.stream()
                 .mapToDouble(item -> item.getPrice() * item.getQuantity())
                 .sum();
@@ -37,9 +44,10 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void addToCart(String username, Long productId) {
-        User user = userRepository.findByUsername(username);
+        User user = userRepository.findByEmail(username);
         Product product = productRepository.findById(productId).orElseThrow();
 
+//        Cartlari bir bir yox ustune elave edir. yeni alt alta yox sayini artirir
         Cart existing = cartRepository.findByUserAndProduct(user, product);
         if (existing != null) {
             System.out.println("Artırıldı");
@@ -58,9 +66,9 @@ public class CartServiceImpl implements CartService {
         }
     }
 //-------------------ozumcun
-    @Override
-    public List<CartDto> getAllCarts() {
-        List<CartDto> cartDtos=cartRepository.findAll().stream().map(cart -> modelMapper.map(cart,CartDto.class)).collect(Collectors.toList());
-        return cartDtos;
-    }
+//    @Override
+//    public List<CartDto> getAllCarts() {
+//        List<CartDto> cartDtos=cartRepository.findAll().stream().map(cart -> modelMapper.map(cart,CartDto.class)).collect(Collectors.toList());
+//        return cartDtos;
+//    }
 }

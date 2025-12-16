@@ -53,6 +53,7 @@ public class HomeController {
     public String thankyou(){
         return "thankyou.html";
     }
+
     @GetMapping("/shop")
     public  String shop(Model model){
         List<ProductDto> productDtoList=productService.getALlShops();

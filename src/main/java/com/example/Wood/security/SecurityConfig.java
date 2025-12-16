@@ -35,8 +35,7 @@ public class SecurityConfig {
                 )
                 .formLogin((form) ->form
                         .loginPage("/login")
-                        .failureUrl("/login")
-                        .failureForwardUrl("/login")
+                        .failureUrl("/login?error=true")
                 )
                 .exceptionHandling(exception->exception
                         .accessDeniedHandler(((request, response,accessDeniedException)->

@@ -18,36 +18,28 @@ import java.util.List;
 public class CartController {
     private final CartService cartService;
 
-//    ----------------ozumcun
+
+
     @GetMapping("/cart")
-    public  String cart(Model model){
-        List<CartDto> cartDtoList = cartService.getAllCarts();
-        model.addAttribute("cartItems", cartDtoList);
+    private String cart(Model model, Principal principal) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
+        String username = principal.getName();
+        List<CartDto> cartItems = cartService.getCartItemsByUserName(username);
+        double subtotal = cartService.calculateSubtotal(cartItems);
+        model.addAttribute("cartItems", cartItems);
+        model.addAttribute("cartTotal", subtotal);
 
         return "cart.html";
     }
-//------------------esas
 
-//    @GetMapping("/cart")
-//    private String cart(Model model, Principal principal) {
-//        if (principal == null) {
-//            return "redirect:/login";
-//        }
-//        String username = principal.getName();
-//        List<Cart> cartItems = cartService.getCartItemsByUserName(username);
-//        double subtotal = cartService.calculateSubtotal(cartItems);
-//        model.addAttribute("cartItems", cartItems);
-//        model.addAttribute("cartTotal", subtotal);
-//
-//        return "cart.html";
-//    }
-//
-//    @PostMapping("/cart/add")
-//    public String addToCart(@RequestParam Long productId, Principal principal) {
-//        if (principal == null) return "redirect:/login";
-//
-//        String username = principal.getName();
-//        cartService.addToCart(username, productId);
-//        return "redirect:/cart";
-//    }
+    @PostMapping("/cart/add")
+    public String addToCart(@RequestParam Long productId, Principal principal) {
+        if (principal == null) {return "redirect:/login";}
+
+        String username = principal.getName();
+        cartService.addToCart(username, productId);
+        return "redirect:/cart";
+    }
 }

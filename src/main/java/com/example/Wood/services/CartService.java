@@ -1,14 +1,13 @@
 package com.example.Wood.services;
 
 import com.example.Wood.dtos.CartDto;
-import com.example.Wood.models.Cart;
 
 import java.util.List;
 
 public interface CartService {
-    List<Cart> getCartItemsByUserName(String username);
+    List<CartDto> getCartItemsByUserName(String username);
 
-    double calculateSubtotal(List<Cart> cartItems);
+    double calculateSubtotal(List<CartDto> cartItems);
 
     void addToCart(String username, Long productId);
 
@@ -16,5 +15,5 @@ public interface CartService {
 
 
 //--------------------ozumcun
-    List<CartDto> getAllCarts();
+//    List<CartDto> getAllCarts();
 }

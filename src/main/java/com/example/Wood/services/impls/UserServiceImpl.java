@@ -17,7 +17,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean registerUser(RegisterDto registerDto) {
-        User findUser=userRepository.findByUsername(registerDto.getUsername());
+        User findUser=userRepository.findByEmail(registerDto.getUsername());
         if ((findUser!=null)){
             return false;
         }
