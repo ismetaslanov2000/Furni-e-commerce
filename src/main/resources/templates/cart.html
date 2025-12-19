@@ -44,29 +44,45 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="item : ${cartItems}">
+                            <tr th:each="item:${cartItems}">
                                 <td class="product-thumbnail">
-                                    <img th:src="@{${item.imageUrl}}" alt="Image" class="img-fluid">
+                                    <img th:src="${item.imageUrl}" alt="Image" class="img-fluid">
                                 </td>
                                 <td class="product-name">
                                     <h2 th:text="${item.name}" class="h5 text-black">Product 1</h2>
                                 </td>
-                                <td th:text="${item.price} + '$'">$49.00</td>
+                                <td th:text="${item.price}">$49.00</td>
                                 <td>
-                                    <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
-                                        <div class="input-group-prepend">
-                                            <button class="btn btn-outline-black decrease" type="button">&minus;</button>
-                                        </div>
-                                        <input type="text" class="form-control text-center quantity-amount" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-black increase" type="button">&plus;</button>
-                                        </div>
+                                    <div class="input-group align-items-center" style="max-width:120px">
+                                        <!-- Decrease button -->
+                                        <form th:action="@{/update}" method="post" class="input-group-prepend m-0">
+                                            <input type="hidden" name="productId" th:value="${item.productId}" />
+                                            <input type="hidden" name="action" value="decrease" />
+                                            <button type="submit" class="btn btn-outline-black">&minus;</button>
+                                        </form>
+
+                                        <!-- Quantity display -->
+                                        <input class="form-control text-center" type="text" th:value="${item.quantity}" readonly style="max-width:55px"/>
+
+                                        <!-- Increase button -->
+                                        <form th:action="@{/update}" method="post" class="input-group-append m-0">
+                                            <input type="hidden" name="productId" th:value="${item.productId}" />
+                                            <input type="hidden" name="action" value="increase" />
+                                            <button type="submit" class="btn btn-outline-black">&plus;</button>
+                                        </form>
+
+
                                     </div>
 
                                 </td>
-                                <td>$49.00</td>
-                                <td><a href="#" class="btn btn-black btn-sm">X</a></td>
+                                <td th:text="'$' + ${item.total}" >$49.00</td>
+                                <td>      <form th:action="@{/delete}" method="post" class="m-0">
+                                    <input type="hidden" name="productId" th:value="${item.productId}"/>
+
+                                    <button class="btn btn-black btn-sm" type="submit">X</button>
+                                </form></td>
                             </tr>
+
 
                             </tbody>
                         </table>
@@ -133,9 +149,6 @@
             </div>
         </div>
     </div>
-
-
-
 </div>
 </body>
 </html>

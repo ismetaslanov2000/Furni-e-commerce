@@ -180,7 +180,7 @@
     <!-- End Popular Product -->
 
     <!-- Start Testimonial Slider -->
-    <div class="testimonial-section">
+    <div class="testimonial-section before-footer-section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 mx-auto text-center">
@@ -199,67 +199,21 @@
 
                         <div class="testimonial-slider">
 
-                            <div class="item">
+                            <div th:each="testimonial:${testimonials}" class="item">
                                 <div class="row justify-content-center">
                                     <div class="col-lg-8 mx-auto">
 
                                         <div class="testimonial-block text-center">
                                             <blockquote class="mb-5">
-                                                <p>&ldquo;Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer convallis volutpat dui quis scelerisque.&rdquo;</p>
+                                                <p th:text="${testimonial.description}">&ldquo;Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer convallis volutpat dui quis scelerisque.&rdquo;</p>
                                             </blockquote>
 
                                             <div class="author-info">
                                                 <div class="author-pic">
-                                                    <img src="/front/images/person-1.png" alt="Maria Jones" class="img-fluid">
+                                                    <img th:src="${testimonial.imageUrl}" alt="Maria Jones" class="img-fluid">
                                                 </div>
-                                                <h3 class="font-weight-bold">Maria Jones</h3>
-                                                <span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- END item -->
-
-                            <div class="item">
-                                <div class="row justify-content-center">
-                                    <div class="col-lg-8 mx-auto">
-
-                                        <div class="testimonial-block text-center">
-                                            <blockquote class="mb-5">
-                                                <p>&ldquo;Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer convallis volutpat dui quis scelerisque.&rdquo;</p>
-                                            </blockquote>
-
-                                            <div class="author-info">
-                                                <div class="author-pic">
-                                                    <img src="/front/images/person-1.png" alt="Maria Jones" class="img-fluid">
-                                                </div>
-                                                <h3 class="font-weight-bold">Maria Jones</h3>
-                                                <span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- END item -->
-
-                            <div class="item">
-                                <div class="row justify-content-center">
-                                    <div class="col-lg-8 mx-auto">
-
-                                        <div class="testimonial-block text-center">
-                                            <blockquote class="mb-5">
-                                                <p>&ldquo;Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer convallis volutpat dui quis scelerisque.&rdquo;</p>
-                                            </blockquote>
-
-                                            <div class="author-info">
-                                                <div class="author-pic">
-                                                    <img src="/front/images/person-1.png" alt="Maria Jones" class="img-fluid">
-                                                </div>
-                                                <h3 class="font-weight-bold">Maria Jones</h3>
-                                                <span class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
+                                                <h3 th:text="${testimonial.name}" class="font-weight-bold">Maria Jones</h3>
+                                                <span th:text="${testimonial.job}"  class="position d-block mb-3">CEO, Co-Founder, XYZ Inc.</span>
                                             </div>
                                         </div>
 

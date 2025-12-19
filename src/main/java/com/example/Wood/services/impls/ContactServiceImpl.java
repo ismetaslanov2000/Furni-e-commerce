@@ -1,6 +1,6 @@
 package com.example.Wood.services.impls;
 
-import com.example.Wood.dtos.ContactDto;
+import com.example.Wood.dtos.contact.ContactDto;
 import com.example.Wood.models.Contact;
 import com.example.Wood.repositories.ContactRepository;
 import com.example.Wood.services.ContactService;

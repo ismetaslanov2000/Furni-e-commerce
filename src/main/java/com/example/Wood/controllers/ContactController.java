@@ -1,9 +1,10 @@
 package com.example.Wood.controllers;
 
-import com.example.Wood.dtos.ContactDto;
+import com.example.Wood.dtos.contact.ContactDto;
 import com.example.Wood.services.ContactService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -12,7 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class ContactController {
     private final ContactService contactService;
 
-    @PostMapping("/")
+    @GetMapping("/contact")
+    public String contact(){
+        return "contact.html";
+    }
+    @PostMapping("/contact")
     public String addContact(@ModelAttribute("contact") ContactDto contactDto) {
         contactService.addContact(contactDto);
         return "redirect:/";

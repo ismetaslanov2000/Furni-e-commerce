@@ -11,9 +11,11 @@ public interface CartService {
 
     void addToCart(String username, Long productId);
 
+    void deleteItem(String username, Long productId);
+
+    void increaseQuantity(String username, Long productId);
+
+    void decreaseQuantity(String username, Long productId);
 
 
-
-//--------------------ozumcun
-//    List<CartDto> getAllCarts();
 }

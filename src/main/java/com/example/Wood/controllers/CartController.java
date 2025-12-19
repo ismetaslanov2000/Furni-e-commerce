@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
 import java.util.List;
@@ -17,6 +18,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CartController {
     private final CartService cartService;
+    @GetMapping("/favicon.ico")
+    @ResponseBody
+    public void favicon() {
+        // boş, sadəcə sorğunu dayandırır
+    }
+
 
 
 
@@ -42,4 +49,27 @@ public class CartController {
         cartService.addToCart(username, productId);
         return "redirect:/cart";
     }
+
+    @PostMapping("/delete")
+    private String delete(@RequestParam Long productId,Principal principal){
+
+        String username=principal.getName();
+        cartService.deleteItem(username,productId);
+        return "redirect:/cart";
+    }
+    @PostMapping("/update")
+    public String updateQuantity(@RequestParam Long productId,
+                                 @RequestParam String action,
+                                 Principal principal) {
+        String username = principal.getName();
+
+        if (action.equals("increase")) {
+            cartService.increaseQuantity(username, productId);
+        } else if (action.equals("decrease")) {
+            cartService.decreaseQuantity(username, productId);
+        }
+
+        return "redirect:/cart";
+    }
+
 }

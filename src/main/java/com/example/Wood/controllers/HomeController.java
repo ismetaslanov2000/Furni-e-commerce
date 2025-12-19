@@ -2,8 +2,10 @@ package com.example.Wood.controllers;
 
 import com.example.Wood.dtos.PostDto;
 import com.example.Wood.dtos.ProductDto;
+import com.example.Wood.dtos.TestimonialDto;
 import com.example.Wood.services.PostService;
 import com.example.Wood.services.ProductService;
+import com.example.Wood.services.TestimonialService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,12 +20,16 @@ public class HomeController {
 
     private final ProductService productService;
     private final PostService postService;
+    private final TestimonialService testimonialService;
 
 
     @GetMapping("/")
     public  String home(Model model){
         List<ProductDto> productDtoList=productService.getALlProducts();
         model.addAttribute("products",productDtoList);
+
+        List<TestimonialDto>testimonialDtoList=testimonialService.getAllTestimonials();
+        model.addAttribute("testimonials",testimonialDtoList);
 
         return "index.html";
     }
@@ -36,18 +42,21 @@ public class HomeController {
         List<PostDto> postDtoList=postService.getALlBlogs();
         model.addAttribute("blogs",postDtoList);
 
+        List<TestimonialDto>testimonialDtoList=testimonialService.getAllTestimonials();
+        model.addAttribute("testimonials",testimonialDtoList);
+
         return "blog.html";
     }
     @GetMapping("/services")
     public  String services(Model model){
         List<ProductDto> productDtoList=productService.getALlServicess();
         model.addAttribute("servicess",productDtoList);
+
+        List<TestimonialDto>testimonialDtoList=testimonialService.getAllTestimonials();
+        model.addAttribute("testimonials",testimonialDtoList);
         return "services.html";
     }
-    @GetMapping("/contact")
-    public  String contact(){
-        return "contact.html";
-    }
+
 
     @GetMapping("/thankyou")
     public String thankyou(){

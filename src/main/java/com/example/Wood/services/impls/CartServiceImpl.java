@@ -9,7 +9,6 @@ import com.example.Wood.repositories.ProductRepository;
 import com.example.Wood.repositories.UserRepository;
 import com.example.Wood.services.CartService;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,20 +19,22 @@ public class CartServiceImpl implements CartService {
     private final CartRepository cartRepository;
     private final UserRepository userRepository;
     private final ProductRepository productRepository;
-//    ----------------ozumcun
-    private final ModelMapper modelMapper;
+
     @Override
     public List<CartDto> getCartItemsByUserName(String username) {
-        return cartRepository.findByUserUsername(username).stream().map(cart -> new CartDto(
-                cart.getId(),
-                cart.getName(),
-                cart.getImageUrl(),
-                cart.getQuantity(),
-                cart.getPrice()
-
-
-        )).toList();
+        return cartRepository.findByUserUsername(username)
+                .stream()
+                .map(cart -> new CartDto(
+                        cart.getId(),
+                        cart.getProduct().getId(),
+                        cart.getName(),
+                        cart.getImageUrl(),
+                        cart.getQuantity(),
+                        cart.getPrice()
+                ))
+                .toList();
     }
+
 
     @Override
     public double calculateSubtotal(List<CartDto> cartItems) {
@@ -65,10 +66,37 @@ public class CartServiceImpl implements CartService {
             cartRepository.save(newCart);
         }
     }
-//-------------------ozumcun
-//    @Override
-//    public List<CartDto> getAllCarts() {
-//        List<CartDto> cartDtos=cartRepository.findAll().stream().map(cart -> modelMapper.map(cart,CartDto.class)).collect(Collectors.toList());
-//        return cartDtos;
-//    }
+
+    @Override
+    public void deleteItem(String username, Long productId) {
+        Cart item=cartRepository.findByUserUsernameAndProductId(username,productId);
+        if (item!=null){
+            cartRepository.delete(item);
+        }
+
+    }
+
+    @Override
+    public void increaseQuantity(String username, Long productId) {
+        Cart item = cartRepository.findByUserUsernameAndProductId(username, productId);
+        if (item != null) {
+            item.setQuantity(item.getQuantity() + 1);
+            cartRepository.save(item);
+        }
+
+    }
+
+    @Override
+    public void decreaseQuantity(String username, Long productId) {
+        Cart item = cartRepository.findByUserUsernameAndProductId(username, productId);
+        if (item != null) {
+            if (item.getQuantity() > 1) {
+                item.setQuantity(item.getQuantity() - 1);
+                cartRepository.save(item);
+            } else {
+                cartRepository.delete(item);
+            }
+
+        }
+    }
 }

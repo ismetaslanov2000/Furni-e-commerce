@@ -7,11 +7,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class ContactDto {
-    private  String firstName;
-    private  String lastName;
-    private  String email;
-    private  String message;
+@AllArgsConstructor
+public class TestimonialDto {
+    private String description;
+    private String imageUrl;
+    private String job;
+    private String name;
+
 }
